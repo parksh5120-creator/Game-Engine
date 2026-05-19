@@ -26,4 +26,12 @@ public class Execution : MonoBehaviour
     {
         Debug.Log("Late Update");
     }
+    private void OnDisable()
+    {
+        Debug.Log("OnDisable");
+    }
+    private void OnDestroy()
+    {
+        Debug.Log("OnDestroy");
+    }
 }
