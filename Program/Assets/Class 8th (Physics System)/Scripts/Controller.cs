@@ -3,10 +3,12 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     [SerializeField] Rigidbody rigidbody;
-    [SerializeField] float speed;
+    [SerializeField] float force;
     [SerializeField] Vector3 direction;
+    [SerializeField] ForceMode forceMode;
     void Start()
     {
+        forceMode = ForceMode.Force;
         rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -31,6 +33,36 @@ public class Controller : MonoBehaviour
         // ForceMode.VelocityChange(순간적인 속도 변화)
         // 무게(m)과 시간(t)을 모두 무시하며, 입력한 벡터 값 자체가 객체의 다음 프레임 속도 변화량이 되는 것이다.
 
-        rigidbody.AddForce(direction * speed, ForceMode.Force);
+        if (forceMode == ForceMode.Impulse)
+        {
+            rigidbody.AddForce(Vector3.up * force, ForceMode.Impulse);
+
+            forceMode = ForceMode.Force;
+
+
+            return;
+        }
+        rigidbody.AddForce(direction * force, forceMode);
+    }
+    public void Soar()
+    {
+        forceMode = ForceMode.Impulse;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Barrier"))
+        {
+            Debug.Log("OnCollisionEnter");
+        }
+
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        Debug.Log("OnCollisionStay");
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        Debug.Log("OnCollisionExit");
     }
 }
