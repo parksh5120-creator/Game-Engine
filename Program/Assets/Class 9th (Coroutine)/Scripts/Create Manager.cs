@@ -8,8 +8,7 @@ public class CreateManager : MonoBehaviour
     [SerializeField] GameObject elemental;
     [SerializeField] List<GameObject> list;
     [SerializeField] int count;
-    [SerializeField] float time;
-
+    [SerializeField] WaitForSeconds wait = new WaitForSeconds(5.0f);
 
     void Start()
     {
@@ -29,11 +28,12 @@ public class CreateManager : MonoBehaviour
     }
     IEnumerator Activate()
     {
-        Debug.Log("Start Coroutine");
 
-        yield return new WaitForSeconds(5.0f);
-        
-        Debug.Log("Stop Coroutine");
+        while (count < list.Count)
+        {
+            list[count++].SetActive(true);
+            yield return wait;
+        }
     }
 
 }
