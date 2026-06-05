@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField] Rigidbody rigidbody;
+    [SerializeField] Rigidbody rigidBody;
     [SerializeField] float force;
     [SerializeField] Vector3 direction;
     [SerializeField] ForceMode forceMode;
     void Start()
     {
         forceMode = ForceMode.Force;
-        rigidbody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -35,14 +35,14 @@ public class Controller : MonoBehaviour
 
         if (forceMode == ForceMode.Impulse)
         {
-            rigidbody.AddForce(Vector3.up * force, ForceMode.Impulse);
+            rigidBody.AddForce(Vector3.up * force, ForceMode.Impulse);
 
             forceMode = ForceMode.Force;
 
 
             return;
         }
-        rigidbody.AddForce(direction * force, forceMode);
+        rigidBody.AddForce(direction * force, forceMode);
     }
     public void Soar()
     {
